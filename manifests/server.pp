@@ -20,6 +20,11 @@ class newrelic::server {
         notify => Service['newrelic-sysmond'];
     }
 
+    exec { "newrelic-set-hostname":
+        command => "nrsysmond-config --set hostname=${newrelic::hostname}",
+        notify => Service['newrelic-sysmond'];
+    }
+
     service { "newrelic-sysmond":
         enable  => true,
         ensure  => running,
